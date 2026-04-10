@@ -1,0 +1,115 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap");
+@import "tailwindcss";
+
+:root {
+  --bg-1: #edf7ee;
+  --bg-2: #cdebd2;
+  --bg-3: #a4d8bf;
+  --ink: #0f2f22;
+  --muted: #406657;
+  --glass: rgba(255, 255, 255, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.75);
+  --shadow-soft: 0 14px 38px rgba(14, 54, 33, 0.14);
+  --shadow-strong: 0 22px 60px rgba(12, 43, 33, 0.2);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: "Manrope", sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 12% 20%, rgba(255, 255, 255, 0.8), transparent 36%),
+    radial-gradient(circle at 83% 12%, rgba(156, 220, 179, 0.45), transparent 28%),
+    linear-gradient(145deg, var(--bg-1), var(--bg-2) 43%, var(--bg-3));
+  background-attachment: fixed;
+}
+
+.app-shell {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.glass {
+  background: var(--glass);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-soft);
+}
+
+.headline {
+  font-family: "Space Grotesk", sans-serif;
+}
+
+.leaf-layer {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.leaf {
+  position: absolute;
+  top: -12%;
+  width: var(--leaf-size);
+  height: calc(var(--leaf-size) * 0.66);
+  left: var(--leaf-left);
+  opacity: 0.26;
+  border-radius: 60% 0;
+  background: linear-gradient(135deg, rgba(88, 166, 110, 0.65), rgba(215, 244, 210, 0.55));
+  transform: rotate(40deg);
+  animation: leaf-fall var(--leaf-duration) linear infinite;
+  animation-delay: var(--leaf-delay);
+}
+
+.leaf::after {
+  content: "";
+  position: absolute;
+  inset: 48% 8% auto;
+  height: 2px;
+  border-radius: 999px;
+  background: rgba(24, 84, 43, 0.2);
+}
+
+@keyframes leaf-fall {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(40deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.3;
+  }
+  50% {
+    transform: translate3d(-22px, 52vh, 0) rotate(120deg);
+  }
+  100% {
+    transform: translate3d(24px, 110vh, 0) rotate(220deg);
+    opacity: 0;
+  }
+}
+
+.card-rise {
+  animation: rise 0.65s ease both;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
