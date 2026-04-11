@@ -10,6 +10,10 @@ const USER_REPORT_IDS_KEY = "civic.userReportIds";
 type FormState = {
   type: IssueType;
   location: string;
+  phoneNumber: string;
+  state: string;
+  district: string;
+  city: string;
   description: string;
   imageUrl: string;
 };
@@ -17,6 +21,10 @@ type FormState = {
 const defaultForm: FormState = {
   type: "garbage",
   location: "",
+  phoneNumber: "",
+  state: "",
+  district: "",
+  city: "",
   description: "",
   imageUrl: "",
 };
@@ -144,6 +152,51 @@ export function ReportIssuePage() {
           </label>
 
           <label className="text-sm font-semibold text-emerald-900">
+            Contact Phone Number
+            <input
+              type="tel"
+              value={form.phoneNumber}
+              onChange={(e) => setForm((prev) => ({ ...prev, phoneNumber: e.target.value }))}
+              required
+              placeholder="+91 9876543210"
+              className="mt-2 block w-full rounded-2xl border border-white/80 bg-white/70 p-3 text-sm"
+            />
+          </label>
+
+          <div className="grid gap-3 sm:grid-cols-3">
+            <label className="text-sm font-semibold text-emerald-900">
+              State
+              <input
+                value={form.state}
+                onChange={(e) => setForm((prev) => ({ ...prev, state: e.target.value }))}
+                required
+                placeholder="Kerala"
+                className="mt-2 block w-full rounded-2xl border border-white/80 bg-white/70 p-3 text-sm"
+              />
+            </label>
+
+            <label className="text-sm font-semibold text-emerald-900">
+              District
+              <input
+                value={form.district}
+                onChange={(e) => setForm((prev) => ({ ...prev, district: e.target.value }))}
+                placeholder="Ernakulam"
+                className="mt-2 block w-full rounded-2xl border border-white/80 bg-white/70 p-3 text-sm"
+              />
+            </label>
+
+            <label className="text-sm font-semibold text-emerald-900">
+              City / Ward
+              <input
+                value={form.city}
+                onChange={(e) => setForm((prev) => ({ ...prev, city: e.target.value }))}
+                placeholder="Kochi"
+                className="mt-2 block w-full rounded-2xl border border-white/80 bg-white/70 p-3 text-sm"
+              />
+            </label>
+          </div>
+
+          <label className="text-sm font-semibold text-emerald-900">
             Description
             <textarea
               value={form.description}
@@ -199,6 +252,12 @@ export function ReportIssuePage() {
                   <StatusBadge status={item.status} />
                 </div>
                 <p className="mt-1 text-xs text-emerald-900/80">{item.location}</p>
+                <p className="mt-1 text-[11px] text-emerald-900/75">
+                  {item.city ? `${item.city}, ` : ""}
+                  {item.district ? `${item.district}, ` : ""}
+                  {item.state}
+                </p>
+                <p className="mt-1 text-[11px] text-emerald-900/75">Contact: {item.phoneNumber || "Not provided"}</p>
               </div>
             ))}
 
