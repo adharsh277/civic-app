@@ -12,7 +12,6 @@ const navItems = [
   { label: "Home", to: "/" },
   { label: "Report", to: "/report" },
   { label: "Dashboard", to: "/dashboard" },
-  { label: "Admin", to: "/admin" },
 ];
 
 export function AppLayout({ children }: Props) {
@@ -23,7 +22,7 @@ export function AppLayout({ children }: Props) {
       <header className="relative z-10 px-4 py-4 sm:px-8 sm:py-6">
         <div className="glass flex flex-col gap-4 rounded-3xl px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <p className="text-[11px] font-semibold tracking-[0.3em] text-emerald-900/75">GO GREEN, WHERE IS GREEN</p>
+            <p className="text-[11px] font-semibold tracking-[0.3em] text-emerald-900/75">BE THE REASON THE PLANET SMILES.</p>
             <h1 className="headline text-2xl font-bold text-emerald-950">Civic Issue Reporter</h1>
           </div>
           <div className="flex flex-col items-start gap-3 sm:items-end">
