@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { ChangeEvent, FormEvent } from "react";
+import { isAxiosError } from "axios";
 import { api } from "../api/client";
 import { StatusBadge } from "../components/StatusBadge";
 import type { IssueType } from "../types/report";
@@ -103,8 +104,17 @@ export function ReportIssuePage() {
       setMessage("Issue submitted successfully. Thank you for going green.");
       setForm(defaultForm);
       void loadMyReports();
-    } catch {
-      setMessage("Unable to submit issue. Please check backend service.");
+    } catch (error) {
+      if (isAxiosError(error) && error.response?.data && typeof error.response.data === "object") {
+        const responseData = error.response.data as { message?: string };
+        if (responseData.message) {
+          setMessage(`Unable to submit issue: ${responseData.message}`);
+        } else {
+          setMessage("Unable to submit issue. Please check backend service.");
+        }
+      } else {
+        setMessage("Unable to submit issue. Please check backend service.");
+      }
     } finally {
       setSubmitting(false);
     }
