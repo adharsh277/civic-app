@@ -11,7 +11,7 @@ const better_sqlite3_1 = __importDefault(require("better-sqlite3"));
 const app = (0, express_1.default)();
 const PORT = 5000;
 app.use((0, cors_1.default)());
-app.use(express_1.default.json());
+app.use(express_1.default.json({ limit: "10mb" }));
 const adminTokens = new Map();
 const dataDir = path_1.default.join(__dirname, "..", "data");
 fs_1.default.mkdirSync(dataDir, { recursive: true });
@@ -51,6 +51,7 @@ const seedAdmins = db.prepare(`
 const adminAccounts = [
     { username: "delhi_admin", password: "admin123", state: "Delhi", name: "Delhi Control Admin" },
     { username: "kerala_admin", password: "admin123", state: "Kerala", name: "Kerala Control Admin" },
+    { username: "maharashtra_admin", password: "admin123", state: "Maharashtra", name: "Maharashtra Control Admin" },
     { username: "punjab_admin", password: "admin123", state: "Punjab", name: "Punjab Control Admin" },
 ];
 for (const admin of adminAccounts) {
