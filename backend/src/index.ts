@@ -59,7 +59,7 @@ const app = express();
 const PORT = 5000;
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: "10mb" }));
 
 const adminTokens = new Map<string, AdminSession>();
 
@@ -105,6 +105,7 @@ const seedAdmins = db.prepare(`
 const adminAccounts: AdminAccount[] = [
   { username: "delhi_admin", password: "admin123", state: "Delhi", name: "Delhi Control Admin" },
   { username: "kerala_admin", password: "admin123", state: "Kerala", name: "Kerala Control Admin" },
+  { username: "maharashtra_admin", password: "admin123", state: "Maharashtra", name: "Maharashtra Control Admin" },
   { username: "punjab_admin", password: "admin123", state: "Punjab", name: "Punjab Control Admin" },
 ];
 
