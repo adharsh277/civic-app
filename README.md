@@ -7,6 +7,19 @@ Modern full-stack SaaS-style platform for environmental cleanliness issue report
 - frontend: React + TypeScript + Tailwind + React Router
 - backend: Node.js + Express + TypeScript (in-memory storage)
 
+## Run Full Stack From Root
+
+```bash
+npm install
+npm run install:all
+npm run dev
+```
+
+This starts both:
+
+- Backend at http://localhost:5000
+- Frontend at http://localhost:5173
+
 ## Run Backend
 
 ```bash
