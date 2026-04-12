@@ -90,7 +90,7 @@ export function AdminPanelPage() {
         const status = axiosError.response?.status;
 
         if (!status) {
-          setError("Backend server is not reachable. Start backend on http://localhost:5000 and try again.");
+          setError("Backend server is not reachable. Start backend on http://backend:5000 (or set VITE_API_BASE_URL) and try again.");
           return;
         }
 
