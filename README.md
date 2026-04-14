@@ -7,6 +7,7 @@ Modern full-stack SaaS-style platform for environmental cleanliness issue report
 - frontend: React + TypeScript + Tailwind + React Router
 - backend: Node.js + Express + TypeScript (in-memory storage)
 
+
 ## Run Full Stack From Root
 
 ```bash
