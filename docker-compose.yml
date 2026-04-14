@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  backend:
+    build: ./backend
+    container_name: backend
+    networks:
+      - civic-net
+
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - civic-net
+
+networks:
+  civic-net:
