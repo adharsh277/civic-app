@@ -296,7 +296,6 @@ app.get("/health", (_req, res) => {
   res.json({ ok: true, service: "civic-reporting-backend" });
 });
 
-app.listen(PORT, () => {
-  // eslint-disable-next-line no-console
-  console.log(`Backend running on http://localhost:${PORT}`);
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`Backend running on http://0.0.0.0:${PORT}`);
 });
