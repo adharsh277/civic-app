@@ -1,0 +1,34 @@
+name: Build and Push to ACR
+
+on:
+  push:
+    branches:
+      - helm-setup
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Login to Azure Container Registry
+        run: |
+          echo "${{ secrets.ACR_PASSWORD }}" | docker login adharshregistry.azurecr.io -u ${{ secrets.ACR_USERNAME }} --password-stdin
+
+      - name: Build frontend image
+        run: |
+          docker build -t adharshregistry.azurecr.io/civic-frontend:latest ./frontend
+
+      - name: Build backend image
+        run: |
+          docker build -t adharshregistry.azurecr.io/civic-backend:latest ./backend
+
+      - name: Push frontend image
+        run: |
+          docker push adharshregistry.azurecr.io/civic-frontend:latest
+
+      - name: Push backend image
+        run: |
+          docker push adharshregistry.azurecr.io/civic-backend:latest
