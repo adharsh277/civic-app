@@ -1,7 +1,7 @@
 frontend:
   image: adharshregistry.azurecr.io/civic-frontend:latest
-  replicas: 3
+  replicas: 2
 
 backend:
   image: adharshregistry.azurecr.io/civic-backend:latest
-  replicas: 3
+  replicas: 2
