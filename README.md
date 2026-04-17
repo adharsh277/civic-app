@@ -2,6 +2,10 @@
 
 Full-stack civic issue reporting platform with a React frontend, Node.js backend, SQLite persistence, containerization, Kubernetes manifests, Helm packaging, and Argo CD GitOps support for Azure AKS.
 
+### Frontend
+
+![Frontend](docs/screenshots/frontend.png)
+
 ## What This Project Does
 
 Citizens can submit public issue reports (garbage, road, water) with location and details.
@@ -316,9 +320,6 @@ Seeded in backend startup:
 
 Add screenshots to `docs/screenshots/` and keep these names for auto-display.
 
-### Frontend
-
-![Frontend](docs/screenshots/frontend.png)
 
 ### Argo CD
 
@@ -342,14 +343,9 @@ Add screenshots to `docs/screenshots/` and keep these names for auto-display.
 ## Next Improvements
 
 - Add persistent volume for SQLite in Kubernetes.
-- Add CI/CD pipeline to build and tag images automatically.
 - Add ingress + TLS for production domain.
 - Add monitoring with Prometheus/Grafana.
 
 ---
 
-If you want, I can also prepare:
 
-- a production-ready `argocd-application.yaml` committed in this repo,
-- a `docs/screenshots/` folder template with exact upload instructions,
-- and a short `MAIN_BRANCH_RELEASE_CHECKLIST.md` for your merge to `main`.
