@@ -4,7 +4,7 @@ Full-stack civic issue reporting platform with a React frontend, Node.js backend
 
 ### Frontend
 
-![Frontend](docs/screenshots/frontend.png)
+![Frontend](assets/frontend.png)
 
 ## What This Project Does
 
@@ -318,20 +318,20 @@ Seeded in backend startup:
 
 ## Screenshots
 
-Add screenshots to `docs/screenshots/` and keep these names for auto-display.
+Add screenshots to `assets/` and keep these names for auto-display.
 
 
 ### Argo CD
 
-![Argo CD Dashboard](docs/screenshots/argocd-dashboard.png)
+![Argo CD Dashboard](assets/argocd-dashboard.png)
 
 ### Kubernetes (kubectl or dashboard)
 
-![Kubernetes Resources](docs/screenshots/kubernetes-resources.png)
+![Kubernetes Resources](assets/kubernetes-resources.png)
 
 ### Azure (AKS or ACR view)
 
-![Azure Portal](docs/screenshots/azure-aks-acr.png)
+![Azure Portal](assets/azure-aks-acr.png)
 
 ## Troubleshooting
 
