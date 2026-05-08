@@ -1,0 +1,29 @@
+nameOverride: ""
+fullnameOverride: ""
+
+backend:
+  replicaCount: 2
+  image:
+    repository: aadhi160/backend
+    tag: latest
+    pullPolicy: IfNotPresent
+  service:
+    type: LoadBalancer
+    port: 5000
+  containerPort: 5000
+
+frontend:
+  replicaCount: 2
+  image:
+    repository: adharshregistry.azurecr.io/civic-frontend
+    tag: latest
+    pullPolicy: IfNotPresent
+  service:
+    type: LoadBalancer
+    port: 80
+  containerPort: 80
+  nginxConfig:
+    backendServiceHost: "{{ include \"civic-app.backendServiceName\" . }}"
+    backendServicePort: 5000
+
+resources: {}

@@ -1,6 +1,15 @@
 # Civic App
 
-Full-stack civic issue reporting platform with a React frontend, Node.js backend, SQLite persistence, containerization, Kubernetes manifests, Helm packaging, and Argo CD GitOps support for Azure AKS.
+Full-stack civic issue reporting platform with a React frontend, Node.js backend, SQLite persistence, containerization, Kubernetes manifests, and a Helm chart.
+
+This repo currently contains:
+
+- local development scripts
+- Docker Compose
+- raw Kubernetes manifests
+- a Helm chart in `civic-app/`
+
+This repo snapshot does not include AKS or Argo CD configuration, but the original deployment used AKS with GitOps.
 
 ### Frontend
 
@@ -16,13 +25,12 @@ Admins can:
 - view reports from their assigned state,
 - update issue status (`Pending`, `In Progress`, `Resolved`).
 
-The app is designed to run in multiple ways:
+The app is designed to run in these ways:
 
 - local development (`npm run dev`)
 - Docker Compose
 - Kubernetes manifests
 - Helm chart
-- Argo CD GitOps (ideal for AKS/Azure)
 
 ## How It Works
 
@@ -52,7 +60,6 @@ Deployment options:
 - Docker Compose
 - Kubernetes (Deployments + Services + ConfigMap)
 - Helm chart (civic-app/)
-- Argo CD sync from Git (GitOps)
 ```
 
 ## Tech Stack
@@ -80,9 +87,7 @@ Deployment options:
 - Docker and Docker Compose
 - Kubernetes
 - Helm 3
-- Argo CD
 - Azure Container Registry (ACR)
-- Azure Kubernetes Service (AKS)
 
 ## Repository Structure
 
@@ -118,7 +123,6 @@ Install these tools before setup:
 - kubectl
 - Helm 3
 - Optional for Azure: Azure CLI (`az`)
-- Optional for GitOps: Argo CD CLI (`argocd`)
 
 ## 1) Local Development Setup
 
@@ -192,16 +196,18 @@ kubectl get svc
 
 ## 4) Helm Setup
 
-Install chart from repo root:
+The chart is in `civic-app/` and was generated from the current Kubernetes manifests.
+
+Install or upgrade from the repo root:
 
 ```bash
-helm install civic-release ./civic-app
+helm upgrade --install civic-release ./civic-app
 ```
 
-Upgrade after changes:
+Render without deploying:
 
 ```bash
-helm upgrade civic-release ./civic-app
+helm template civic-release ./civic-app
 ```
 
 Uninstall:
@@ -210,63 +216,20 @@ Uninstall:
 helm uninstall civic-release
 ```
 
-## 5) Argo CD GitOps Setup (Recommended for AKS)
-
-### Install Argo CD (if not installed)
-
-```bash
-kubectl create namespace argocd
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-```
-
-### Create Argo CD Application
-
-Save as `argocd-application.yaml`:
-
-```yaml
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-	name: civic-app
-	namespace: argocd
-spec:
-	project: default
-	source:
-		repoURL: https://github.com/adharsh277/civic-app.git
-		targetRevision: helm-setup
-		path: civic-app
-	destination:
-		server: https://kubernetes.default.svc
-		namespace: default
-	syncPolicy:
-		automated:
-			prune: true
-			selfHeal: true
-```
-
-Apply:
-
-```bash
-kubectl apply -f argocd-application.yaml
-```
-
-Argo CD will watch Git and sync Kubernetes automatically.
-
-## 6) Azure Deployment Flow (ACR + AKS)
+## 5) Azure Deployment Flow (ACR + AKS/GitOps)
 
 High-level flow:
 
 1. Build frontend and backend images.
 2. Push images to Azure Container Registry.
-3. Update image tags in Helm values.
-4. Argo CD syncs updated chart to AKS.
+3. Update image tags in `civic-app/values.yaml`.
+4. Deploy the chart to a Kubernetes cluster.
+
+In the original setup, the chart was synced to AKS through GitOps. That wiring is not checked into this snapshot.
 
 ### Example Commands
 
 ```bash
-# Login
-az login
-
 # Build and push backend
 docker build -t <acr-name>.azurecr.io/civic-backend:latest ./backend
 docker push <acr-name>.azurecr.io/civic-backend:latest
@@ -276,7 +239,7 @@ docker build -t <acr-name>.azurecr.io/civic-frontend:latest ./frontend
 docker push <acr-name>.azurecr.io/civic-frontend:latest
 ```
 
-Then update `civic-app/values.yaml` images to point to ACR.
+Then update `civic-app/values.yaml` image repositories and tags to point to ACR.
 
 ## Environment Configuration
 
@@ -320,16 +283,11 @@ Seeded in backend startup:
 
 Add screenshots to `assets/` and keep these names for auto-display.
 
-
-### Argo CD
-
-![Argo CD Dashboard](assets/argocd-dashboard.png)
-
 ### Kubernetes (kubectl or dashboard)
 
 ![Kubernetes Resources](assets/kubernetes-resources.png)
 
-### Azure (AKS or ACR view)
+### Azure (ACR / AKS view)
 
 ![Azure Portal](assets/azure-aks-acr.png)
 
@@ -337,7 +295,6 @@ Add screenshots to `assets/` and keep these names for auto-display.
 
 - If frontend cannot reach backend, verify proxy route and service names.
 - If Kubernetes image pull fails, check ACR credentials and image paths.
-- If Argo CD shows OutOfSync, inspect app events and sync manually.
 - If backend data seems missing, remember SQLite file is local to container unless persistent volume is configured.
 
 ## Next Improvements
