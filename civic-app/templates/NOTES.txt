@@ -1,0 +1,8 @@
+1. Get the application URLs:
+
+{{- if eq .Values.frontend.service.type "LoadBalancer" }}
+  kubectl get svc {{ include "civic-app.frontendServiceName" . }}
+  kubectl get svc {{ include "civic-app.backendServiceName" . }}
+{{- else }}
+  kubectl port-forward svc/{{ include "civic-app.frontendServiceName" . }} 8080:{{ .Values.frontend.service.port }}
+{{- end }}
