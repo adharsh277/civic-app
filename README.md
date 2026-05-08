@@ -9,7 +9,7 @@ This repo currently contains:
 - raw Kubernetes manifests
 - a Helm chart in `civic-app/`
 
-This repo snapshot does not include AKS or Argo CD configuration, but the original deployment used AKS with GitOps.
+AKS and GitOps were part of the original deployment, but their configuration is not checked into this repo snapshot.
 
 ### Frontend
 
